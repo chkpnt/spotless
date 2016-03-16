@@ -41,4 +41,12 @@ public class EclipseFormatterStepTest extends ResourceTest {
 	public void loadUnknownSettings() throws Exception {
 		EclipseFormatterStep.load(new File("formatter.unknown"));
 	}
+
+	@Test
+	public void longLiteralProblem() throws Throwable {
+		// setting for the formatter
+		EclipseFormatterStep step = EclipseFormatterStep.load(createTestFile("long_literals/spotless.eclipseformat.xml"));
+		assertStep(step::format, "long_literals/Example1.test", "long_literals/Example1.test");
+		assertStep(step::format, "long_literals/Example2.test", "long_literals/Example2.test");
+	}
 }
